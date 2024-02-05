@@ -1,4 +1,4 @@
 
-module.exports.index = function(req, res) {
-    res.render('index', {title:'Steven Barnes'})
+module.exports.home = function(req, res) {
+    res.render('index', { title: 'Steven Barnes' })
 }
