@@ -3,5 +3,5 @@ module.exports.blogList = function(req, res) {
 }
 
 module.exports.blogAdd = function(req, res) {
-    render.render('blog/blog-add', { title: 'Blog Add' })
+    res.render('blog/blog-add', { title: 'Blog Add' })
 }
