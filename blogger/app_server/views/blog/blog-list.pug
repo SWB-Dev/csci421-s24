@@ -1,1 +1,11 @@
-extends ../under-construction
+extends ../layout
+
+block content
+  h1= title
+  ul
+    each blog in blogs
+      li
+        h2= blog.blogTitle
+        p= blog.blogText
+        p= blog.createdOn.toString()
+    
