@@ -8,17 +8,17 @@ var blogs = [
     {
         blogTitle: "My first blog!",
         blogText: "This is my first blog.",
-        createdOn: new Date(dtnow - (day*(dtNow % 13)))
+        createdOn: new Date(dtNow - (day*(dtNow % 13)))
     },
     {
         blogTitle: "A second blog.",
         blogText: "The second blog shows how we iterate an array of objects using a pug template.",
-        createdOn: new Date(dtnow - (hour*(dtNow % 15)))
+        createdOn: new Date(dtNow - (hour*(dtNow % 15)))
     },
     {
         blogTitle: "Now we're getting MEAN!",
         blogText: "Being MEAN is a big change for me.  I'm use to being as nice as I can!",
-        createdOn: new Date(dtnow - (minute*(dtNow % 19)))
+        createdOn: new Date(dtNow - (minute*(dtNow % 19)))
     }
 ]
 
