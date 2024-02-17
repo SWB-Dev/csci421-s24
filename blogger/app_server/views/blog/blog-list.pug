@@ -7,8 +7,9 @@ block content
       .card-body
         h4.card-title= blog.blogTitle
         p.card-text= blog.blogText
-        .justify-content-end
-          a.card-link(href="/blogs/"+idx)
-            button.btn.btn-primary(type="button")
-              i.bi.bi-pencil-square Edit
+        ul.nav.nav-pills.justify-content-end
+          li.nav-item 
+            a.nav-link(href="/blogs/"+idx)
+              i.bi.bi-pencil-square 
+              span Edit
     
