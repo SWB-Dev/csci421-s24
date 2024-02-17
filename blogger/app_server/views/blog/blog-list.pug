@@ -4,8 +4,9 @@ block content
   h1= title
   each blog, idx in blogs
     .card
-      h4.card-title= blog.blogTitle
-      p.card-text= blog.blogText
-      a.card-link(href="/blogs/"+idx)
-        i.bi.bi-pencil-square
+      .card-body
+        h4.card-title= blog.blogTitle
+        p.card-text= blog.blogText
+        a.card-link(href="/blogs/"+idx)
+          i.bi.bi-pencil-square
     
