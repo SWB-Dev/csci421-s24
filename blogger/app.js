@@ -16,6 +16,11 @@ var app = express();
 app.set('views', path.join(__dirname, 'app_server', 'views'));
 app.set('view engine', 'pug');
 
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
+app.use('/icons', express.static(path.join(__dirname, 'node_modules/bootstrap-icons/fonts')))
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
