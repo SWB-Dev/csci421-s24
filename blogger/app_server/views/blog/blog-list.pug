@@ -2,10 +2,10 @@ extends ../layout
 
 block content
   h1= title
-  ul
-    each blog in blogs
-      li
-        h2= blog.blogTitle
-        p= blog.blogText
-        p= blog.createdOn.toString()
+  each blog, idx in blogs
+    .card
+      h4.card-title= blog.blogTitle
+      p.card-text= blog.blogText
+      a.card-link(href="/blogs/"+idx)
+        i.bi.bi-pencil-square
     
