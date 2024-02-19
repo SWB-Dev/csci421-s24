@@ -30,5 +30,19 @@ module.exports.blogList = function(req, res) {
 }
 
 module.exports.blogAdd = function(req, res) {
-    res.render('blog/blog-add', { title: 'Blog Add' })
+    res.render('blog/blog-add', { title: 'Blog Add' });
+}
+
+module.exports.blodEdit = function(req, res) {
+    if (req.params && req.params.id) {
+        console.log("User requested Blog ID: " + req.params.id)
+    }
+    res.render('blog/blog-edit', {title: 'Edit Blog'});
+}
+
+module.exports.blodDelete = function(req, res) {
+    if (req.params && req.params.id) {
+        console.log("User requested Blog ID: " + req.params.id)
+    }
+    res.render('blog/blog-delete', {title: 'Delete Blog'});
 }
