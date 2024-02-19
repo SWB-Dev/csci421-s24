@@ -33,16 +33,12 @@ module.exports.blogAdd = function(req, res) {
     res.render('blog/blog-add', { title: 'Blog Add' });
 }
 
-module.exports.blodEdit = function(req, res) {
-    if (req.params && req.params.id) {
-        console.log("User requested Blog ID: " + req.params.id)
-    }
+module.exports.blogEdit = function(req, res) {
+    console.log("User requested Blog ID: " + req.params.blogid)
     res.render('blog/blog-edit', {title: 'Edit Blog'});
 }
 
-module.exports.blodDelete = function(req, res) {
-    if (req.params && req.params.id) {
-        console.log("User requested Blog ID: " + req.params.id)
-    }
+module.exports.blogDelete = function(req, res) {
+    console.log("User requested Blog ID: " + req.params.blogid)
     res.render('blog/blog-delete', {title: 'Delete Blog'});
 }
