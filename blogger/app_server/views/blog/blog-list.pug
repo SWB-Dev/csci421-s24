@@ -1,1 +1,19 @@
-extends ../under-construction
+extends ../layout
+
+block content
+  h1= title
+  each blog, idx in blogs
+    .card
+      .card-body
+        h4.card-title= blog.blogTitle
+        p.card-text= blog.blogText
+        ul.nav.nav-pills.justify-content-end
+          li.nav-item 
+            a.nav-link(href="/blog/"+idx+"/edit")
+              i.bi.bi-pencil-square 
+              span Edit
+          li.nav-item
+            a.nav-link(href="/blog/"+idx+"/delete")
+              i.bi.bi-trash3
+              span Delete
+    

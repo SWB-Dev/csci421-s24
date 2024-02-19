@@ -14,4 +14,10 @@ router.get('/blog', ctrlBlog.blogList);
 /* GET blog add page */
 router.get('/blog/add', ctrlBlog.blogAdd);
 
+/* GET blog edit page */
+router.get('/blog/:blogid/edit', ctrlBlog.blogEdit);
+
+/* GET blog delete page */
+router.get('/blog/:blogid/delete', ctrlBlog.blogDelete);
+
 module.exports = router;
