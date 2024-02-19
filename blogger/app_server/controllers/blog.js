@@ -34,11 +34,11 @@ module.exports.blogAdd = function(req, res) {
 }
 
 module.exports.blogEdit = function(req, res) {
-    console.log("User requested Blog ID: " + req.params.blogid)
+    // console.log("User requested Blog ID: " + req.param(blogid))
     res.render('blog/blog-edit', {title: 'Edit Blog'});
 }
 
 module.exports.blogDelete = function(req, res) {
-    console.log("User requested Blog ID: " + req.params.blogid)
+    // console.log("User requested Blog ID: " + req.params.blogid)
     res.render('blog/blog-delete', {title: 'Delete Blog'});
 }
