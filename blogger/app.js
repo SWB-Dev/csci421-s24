@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 // Setup database environment
 require('dotenv').config()
-require('./app_server/models/db');
+require('./app_api/models/db');
 
 var routes = require('./app_server/routes/index');
 var routesAPI = require('./app_api/routes/index');
