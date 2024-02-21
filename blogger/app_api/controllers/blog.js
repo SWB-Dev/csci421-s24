@@ -45,8 +45,8 @@ module.exports.blogList = function (req, res) {
 module.exports.blogAdd = function (req, res) {
     console.log ("*****Request sent to API*****")
     var blog = instantiateBlog (req.body)
-    Blog.create (
-        blog,
+    Blog.create (blog)
+        .then(
         function (err, newBlog) {
             if (err) {
                 sendJSONresponse (res, 400, err)
