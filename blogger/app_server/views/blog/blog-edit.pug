@@ -8,5 +8,5 @@ block content
             input#blogTitle.form-control(type="text", placeholder="Blog Title", name="blogTitle", value=blog.blogTitle)
         .mb-3
             label.form-label(for="blogText") Blog Text
-            textarea#blogText.form-control(name="blogText", cols="30", rows="10", text=blog.blogText)
+            textarea#blogText.form-control(name="blogText", cols="30", rows="10")= blog.blogText
         button.btn.btn-primary(type="submit") Submit
