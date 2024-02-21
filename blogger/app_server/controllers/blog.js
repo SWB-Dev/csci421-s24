@@ -38,7 +38,7 @@ var renderBlogEdit = function (req, res, responseBody) {
 }
 
 var blogFindOne = function (req, res, callback) {
-    console.log("User requested Blog ID: " + req.params.blogId)
+    console.log("blogFindOne: " + req.params.blogId)
     var requestOptions, path, blogId;
     var blogId = req.params.blogId;
     path = '/api/blog/'+blogId;
@@ -119,13 +119,13 @@ module.exports.blogAdd = function(req, res) {
 }
 
 module.exports.blogEdit = function(req, res) {
-    console.log("User requested Blog ID: " + req.params.blogId)
+    console.log("blogEdit: " + req.params.blogId)
     blogFindOne(req, res, renderBlogEdit)
     // res.render('blog/blog-edit', {title: 'Edit Blog'});
 }
 
 module.exports.doBlogEdit = function(req, res) {
-    console.log("User requested Blog ID: " + req.params.blogId)
+    console.log("doBlogEdit: " + req.params.blogId)
     console.log("***** PUT Edit Blog Form *****");
     var requestOptions, path, blogId, blogData;
     blogId = req.params.blogId;

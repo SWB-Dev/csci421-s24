@@ -19,7 +19,7 @@ router.post('/blog/add', ctrlBlog.blogAdd)
 /* GET blog edit page */
 router.get('/blog/:blogId/edit', ctrlBlog.blogEdit);
 
-router.put('/blog/:blogId/edit', ctrlBlog.doBlogEdit);
+router.put('/blog/:blogId/save', ctrlBlog.doBlogEdit);
 
 /* GET blog delete page */
 router.get('/blog/:blogId/delete', ctrlBlog.blogDelete);
