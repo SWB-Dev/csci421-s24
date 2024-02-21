@@ -44,10 +44,12 @@ module.exports.blogList = function(req, res) {
 }
 
 module.exports.blogNew = function (req, res) {
-    res.render('blog/blog-add', {title:"New Blog"})
+    console.log("***** GET New Blog Form *****");
+    res.render('blog/blog-add', {title:"New Blog"});
 }
 
 module.exports.blogAdd = function(req, res) {
+    console.log("***** POST New Blog Form *****");
     var requestOptions, path, blogData;
     path = '/api/blog/blog-add';
 
