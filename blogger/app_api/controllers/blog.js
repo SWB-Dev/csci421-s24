@@ -49,7 +49,7 @@ module.exports.blogList = function (req, res) {
 }
 
 module.exports.blogFindOne = function (req, res) {
-    var blogId = req.body.blogId;
+    var blogId = req.params.blogId;
     console.log("API finding blog: "+blogId)
     Blog.findOne({_id:blogId})
     .then(function(blog) {
