@@ -49,6 +49,7 @@ module.exports.blogAdd = function (req, res) {
         .then(
         function (err, newBlog) {
             if (err) {
+                console.log(err)
                 sendJSONresponse (res, 400, err)
             } else {
                 console.log("***** Created blog *****\n"+newBlog)
