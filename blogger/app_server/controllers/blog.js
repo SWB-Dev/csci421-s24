@@ -44,7 +44,31 @@ module.exports.blogList = function(req, res) {
 }
 
 module.exports.blogAdd = function(req, res) {
-    res.render('blog/blog-add', { title: 'Blog Add' });
+    var requestOptions, path, blogData;
+    path = '/api/blog-add';
+
+    blogData = {
+        blogTitle: req.body.blogTitle,
+        blogText: req.body.blogText
+    };
+
+    requestOptions = {
+        url: apiOptions.server + path,
+        method: "POST",
+        json: blogData
+    };
+
+    request(
+        requestOptions,
+        function (err, response, body) {
+            var data;
+            data = body;
+            if (response.statusCode === 201) {
+                console.log(res.body);
+                res.redirect('/blog');
+            }
+        }
+    );
 }
 
 module.exports.blogEdit = function(req, res) {
