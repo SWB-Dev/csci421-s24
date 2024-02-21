@@ -43,6 +43,10 @@ module.exports.blogList = function(req, res) {
     )
 }
 
+module.exports.blogNew = function (req, res) {
+    res.render('blog/blog-add', {title:"New Blog"})
+}
+
 module.exports.blogAdd = function(req, res) {
     var requestOptions, path, blogData;
     path = '/api/blog-add';
