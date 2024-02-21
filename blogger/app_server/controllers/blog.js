@@ -138,7 +138,7 @@ module.exports.doBlogEdit = function(req, res) {
 
     requestOptions = {
         url: apiOptions.server + path,
-        method: "PUT",
+        method: "POST",
         json: {
             blogTitle: req.body.blogTitle,
             blogText: req.body.blogText
