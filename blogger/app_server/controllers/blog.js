@@ -37,27 +37,6 @@ var renderBlogEdit = function (req, res, responseBody) {
     })
 }
 
-module.exports.blogList = function(req, res) {
-    var requestOptions, path;
-    path = '/api/blog';
-    requestOptions = {
-        url: apiOptions.server + path,
-        method: "GET",
-        json: {}
-    };
-
-    request(
-        requestOptions,
-        function (err, response, body) {
-            var data;
-            data = body;
-            if (response.statusCode === 200 && data.length) {
-                renderBlogList (req, res, data);
-            }
-        }
-    )
-}
-
 var blogFindOne = function (req, res, callback) {
     console.log("User requested Blog ID: " + req.params.blogId)
     var requestOptions, path, blogId;
@@ -75,6 +54,27 @@ var blogFindOne = function (req, res, callback) {
         function (err, response, body) {
             if (response.statusCode == 200) {
                 callback(req, res, body)
+            }
+        }
+    )
+}
+
+module.exports.blogList = function(req, res) {
+    var requestOptions, path;
+    path = '/api/blog';
+    requestOptions = {
+        url: apiOptions.server + path,
+        method: "GET",
+        json: {}
+    };
+
+    request(
+        requestOptions,
+        function (err, response, body) {
+            var data;
+            data = body;
+            if (response.statusCode === 200 && data.length) {
+                renderBlogList (req, res, data);
             }
         }
     )
@@ -119,7 +119,7 @@ module.exports.blogAdd = function(req, res) {
 
 module.exports.blogEdit = function(req, res) {
     console.log("User requested Blog ID: " + req.params.blogId)
-    blogFindOne(res, req, renderBlogEdit)
+    blogFindOne(req, res, renderBlogEdit)
     // res.render('blog/blog-edit', {title: 'Edit Blog'});
 }
 
