@@ -151,7 +151,7 @@ module.exports.doBlogEdit = function(req, res) {
             var data;
             data = body;
             if (response.statusCode === 200) {
-                console.log(res.body);
+                console.log(body);
                 res.redirect('/blog');
             }
         }
