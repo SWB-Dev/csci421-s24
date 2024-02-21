@@ -51,7 +51,7 @@ module.exports.blogNew = function (req, res) {
 module.exports.blogAdd = function(req, res) {
     console.log("***** POST New Blog Form *****");
     var requestOptions, path, blogData;
-    path = '/api/blog/blog-add';
+    path = '/api/blog/add';
 
     blogData = {
         blogTitle: req.body.blogTitle,
@@ -77,7 +77,7 @@ module.exports.blogAdd = function(req, res) {
                 res.redirect('/blog');
             }
         }
-    );
+    )
 }
 
 module.exports.blogEdit = function(req, res) {
