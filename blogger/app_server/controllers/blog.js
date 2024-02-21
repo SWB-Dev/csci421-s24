@@ -1,3 +1,4 @@
+const { response } = require('express');
 var request = require('request');
 
 var apiOptions = {
@@ -22,6 +23,20 @@ var renderBlogList = function (req, res, responseBody) {
     })
 }
 
+var renderBlogEdit = function (req, res, responseBody) {
+    var message;
+    if (!responseBody) {
+        message = "API lookup error";
+        responseBody = {}
+    }
+
+    res.render('blog/blog-edit', {
+        title:"Blog Edit",
+        blog: responseBody,
+        message: message
+    })
+}
+
 module.exports.blogList = function(req, res) {
     var requestOptions, path;
     path = '/api/blog';
@@ -38,6 +53,27 @@ module.exports.blogList = function(req, res) {
             data = body;
             if (response.statusCode === 200 && data.length) {
                 renderBlogList (req, res, data);
+            }
+        }
+    )
+}
+
+var blogFindOne = function (req, res, callback) {
+    var requestOptions, path, blogId;
+    var blogId = req.body.blogId;
+    path = '/api/blog/'+blogId;
+
+    requestOptions = {
+        url: apiOptions.server + path,
+        method: "GET",
+        json: {}
+    }
+
+    request(
+        requestOptions,
+        function (err, response, body) {
+            if (response.statusCode == 200) {
+                callback(req, res, body)
             }
         }
     )
@@ -81,8 +117,42 @@ module.exports.blogAdd = function(req, res) {
 }
 
 module.exports.blogEdit = function(req, res) {
+    console.log("User requested Blog ID: " + req.params.blogId)
+    blogFindOne(res, req, renderBlogEdit)
+    // res.render('blog/blog-edit', {title: 'Edit Blog'});
+}
+
+module.exports.doBlogEdit = function(req, res) {
     console.log("User requested Blog ID: " + req.params.blogid)
-    res.render('blog/blog-edit', {title: 'Edit Blog'});
+    console.log("***** POST New Blog Form *****");
+    var requestOptions, path, blogData;
+    path = '/api/blog/add';
+
+    blogData = {
+        blogTitle: req.body.blogTitle,
+        blogText: req.body.blogText
+    };
+
+    requestOptions = {
+        url: apiOptions.server + path,
+        method: "POST",
+        json: {
+            blogTitle: req.body.blogTitle,
+            blogText: req.body.blogText
+        }
+    };
+
+    request(
+        requestOptions,
+        function (err, response, body) {
+            var data;
+            data = body;
+            if (response.statusCode === 201) {
+                console.log(res.body);
+                res.redirect('/blog');
+            }
+        }
+    )
 }
 
 module.exports.blogDelete = function(req, res) {

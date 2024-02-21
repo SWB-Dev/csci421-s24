@@ -17,9 +17,11 @@ router.get('/blog/add', ctrlBlog.blogNew);
 router.post('/blog/add', ctrlBlog.blogAdd)
 
 /* GET blog edit page */
-router.get('/blog/:blogid/edit', ctrlBlog.blogEdit);
+router.get('/blog/:blogId/edit', ctrlBlog.blogEdit);
+
+router.post('/blog/:blogId/edit', ctrlBlog.doBlogEdit);
 
 /* GET blog delete page */
-router.get('/blog/:blogid/delete', ctrlBlog.blogDelete);
+router.get('/blog/:blogId/delete', ctrlBlog.blogDelete);
 
 module.exports = router;

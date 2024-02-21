@@ -48,6 +48,17 @@ module.exports.blogList = function (req, res) {
         })
 }
 
+module.exports.blogFindOne = function (req, res) {
+    var blogId = req.body.blogId;
+    Blog.findById(blogId)
+    .then(function(blog) {
+        sendJSONresponse (res, 200, blog);
+    })
+    .catch(function(err) {
+        console.log(err)
+    })
+}
+
 module.exports.blogAdd = function (req, res) {
     console.log ("*****Request sent to API*****")
     var blog = instantiateBlog (req.body)
@@ -60,4 +71,9 @@ module.exports.blogAdd = function (req, res) {
             console.log(err)
             sendJSONresponse (res, 400, err)
         })
+}
+
+module.exports.blogEdit = function (req, res) {
+    console.log("****Request sent to API*****");
+
 }
