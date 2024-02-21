@@ -49,7 +49,7 @@ module.exports.blogNew = function (req, res) {
 
 module.exports.blogAdd = function(req, res) {
     var requestOptions, path, blogData;
-    path = '/api/blog-add';
+    path = '/api/blog/blog-add';
 
     blogData = {
         blogTitle: req.body.blogTitle,
