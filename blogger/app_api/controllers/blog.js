@@ -5,7 +5,7 @@ var day = hour * 24;
 var dtNow = Date.now();
 
 var mongoose = require('mongoose');
-var Blog = mongoose.model('blog')
+var Blog = mongoose.model('Blog')
 
 var blogs = [
     {
