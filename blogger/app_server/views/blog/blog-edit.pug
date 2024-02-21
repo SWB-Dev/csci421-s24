@@ -2,7 +2,7 @@ extends ../layout
 
 block content
     h1= title
-    form(action='/blog/'+blog._id+'/edit' method="post")
+    form(action='/blog/'+blog._id+'/edit' method="put")
         .mb-3.mt-3
             label.form-label(for="blogTitle") Blog Title
             input#blogTitle.form-control(type="text", placeholder="Blog Title", name="blogTitle", value=blog.blogTitle)

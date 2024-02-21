@@ -125,10 +125,11 @@ module.exports.blogEdit = function(req, res) {
 }
 
 module.exports.doBlogEdit = function(req, res) {
-    console.log("User requested Blog ID: " + req.params.blogid)
-    console.log("***** POST New Blog Form *****");
-    var requestOptions, path, blogData;
-    path = '/api/blog/add';
+    console.log("User requested Blog ID: " + req.params.blogId)
+    console.log("***** PUT Edit Blog Form *****");
+    var requestOptions, path, blogId, blogData;
+    blogId = req.params.blogId;
+    path = '/api/blog/'+blogId;
 
     blogData = {
         blogTitle: req.body.blogTitle,
