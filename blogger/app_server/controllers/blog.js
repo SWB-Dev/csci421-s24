@@ -59,6 +59,7 @@ module.exports.blogList = function(req, res) {
 }
 
 var blogFindOne = function (req, res, callback) {
+    console.log("User requested Blog ID: " + req.params.blogId)
     var requestOptions, path, blogId;
     var blogId = req.params.blogId;
     path = '/api/blog/'+blogId;
