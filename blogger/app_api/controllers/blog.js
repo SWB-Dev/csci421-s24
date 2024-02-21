@@ -48,7 +48,7 @@ module.exports.blogAdd = function (req, res) {
     Blog.create (blog)
         .then(function (newBlog) {
             console.log("***** Created blog *****\n"+newBlog)
-            sendJSONresponse (res, 200, newBlog)
+            sendJSONresponse (res, 201, newBlog)
         })
         .catch(function(err) {
             console.log(err)
