@@ -14,7 +14,7 @@ router.get('/blog', ctrlBlog.blogList);
 /* GET blog add page */
 router.get('/blog/add', ctrlBlog.blogNew);
 
-router.post('/blog/add-blog', ctrlBlog.blogAdd)
+router.post('/blog/add', ctrlBlog.blogAdd)
 
 /* GET blog edit page */
 router.get('/blog/:blogid/edit', ctrlBlog.blogEdit);
