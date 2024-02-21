@@ -9,11 +9,11 @@ block content
         p.card-text= blog.blogText
         ul.nav.nav-pills.justify-content-end
           li.nav-item 
-            a.nav-link(href="/blog/"+idx+"/edit")
+            a.nav-link(href="/blog/"+blog._id+"/edit")
               i.bi.bi-pencil-square 
               span Edit
           li.nav-item
-            a.nav-link(href="/blog/"+idx+"/delete")
+            a.nav-link(href="/blog/"+blog._id+"/delete")
               i.bi.bi-trash3
               span Delete
     
