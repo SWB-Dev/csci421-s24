@@ -52,6 +52,7 @@ module.exports.blogFindOne = function (req, res) {
     var blogId = req.body.blogId;
     Blog.findById(blogId)
     .then(function(blog) {
+        console.log("API: "+blog)
         sendJSONresponse (res, 200, blog);
     })
     .catch(function(err) {

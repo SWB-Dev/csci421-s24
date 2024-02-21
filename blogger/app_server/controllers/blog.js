@@ -53,6 +53,7 @@ var blogFindOne = function (req, res, callback) {
         requestOptions,
         function (err, response, body) {
             if (response.statusCode == 200) {
+                console.log(body)
                 callback(req, res, body)
             }
         }
