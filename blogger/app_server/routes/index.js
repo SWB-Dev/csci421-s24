@@ -24,4 +24,6 @@ router.post('/blog/:blogId/save', ctrlBlog.doBlogEdit);
 /* GET blog delete page */
 router.get('/blog/:blogId/delete', ctrlBlog.blogDelete);
 
+router.post('/blog/:blogId/delete', ctrlBlog.doBlogDelete);
+
 module.exports = router;

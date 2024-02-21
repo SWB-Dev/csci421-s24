@@ -37,6 +37,20 @@ var renderBlogEdit = function (req, res, responseBody) {
     })
 }
 
+var renderBlogDelete = function (req, res, responseBody) {
+    var message;
+    if (!responseBody) {
+        message = "API lookup error";
+        responseBody = {}
+    }
+
+    res.render('blog/blog-delete', {
+        title:"Blog Delete",
+        blog: responseBody,
+        message: message
+    })
+}
+
 var blogFindOne = function (req, res, callback) {
     console.log("blogFindOne: " + req.params.blogId)
     var requestOptions, path, blogId;
@@ -158,7 +172,29 @@ module.exports.doBlogEdit = function(req, res) {
     )
 }
 
-module.exports.blogDelete = function(req, res) {
-    console.log("User requested Blog ID: " + req.params.blogid)
-    res.render('blog/blog-delete', {title: 'Delete Blog'});
+module.exports.doBlogDelete = function(req, res) {
+    console.log("blogDelete: " + req.params.blogid)
+    var requestOptions, path, blogId;
+    blogId = req.params.blogId;
+    path = '/api/blog/'+blogId;
+    requestOptions = {
+        url: apiOptions.server + path,
+        method: "DELETE",
+        json: {}
+    };
+    request(
+        requestOptions,
+        function (err, response, body) {
+            if (response.statusCode === 204) {
+                res.redirect('/blog')
+            } else {
+                console.log(err)
+            }
+        }
+    )
+}
+
+module.exports.blogDelete = function (req, res) {
+    console.log("blogEdit: " + req.params.blogId)
+    blogFindOne(req, res, renderBlogDelete)
 }

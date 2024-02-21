@@ -70,3 +70,12 @@ module.exports.blogEdit = function (req, res) {
         })
 
 }
+
+module.exports.blogDelete = function (req, res) {
+    console.log("****Request sent to API: blogDelete*****");
+    var blogId = req.params.blogId;
+
+    Blog.findByIdAndDelete(blogId)
+        .then(() => sendJSONresponse (res, 204, null))
+        .catch((err) => sendJSONresponse (res, 404, err))
+}
