@@ -77,5 +77,20 @@ module.exports.blogAdd = function (req, res) {
 
 module.exports.blogEdit = function (req, res) {
     console.log("****Request sent to API*****");
+    var blogId = req.params.blogId;
+    var updates = {
+        blogTitle: req.body.blogTitle,
+        blogText: req.body.blogText
+    }
+
+    Blog.findByIdAndUpdate(blogId, updates)
+        .then(function(blog) {
+            console.log("***** Updated blog: "+blogId+" *****");
+            sendJSONresponse (res, 200, blog);
+        })
+        .catch(function(err) {
+            console.log(err);
+            sendJSONresponse (res, 400 ,err);
+        })
 
 }

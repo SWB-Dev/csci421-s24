@@ -137,7 +137,7 @@ module.exports.doBlogEdit = function(req, res) {
 
     requestOptions = {
         url: apiOptions.server + path,
-        method: "POST",
+        method: "PUT",
         json: {
             blogTitle: req.body.blogTitle,
             blogText: req.body.blogText
@@ -149,7 +149,7 @@ module.exports.doBlogEdit = function(req, res) {
         function (err, response, body) {
             var data;
             data = body;
-            if (response.statusCode === 201) {
+            if (response.statusCode === 200) {
                 console.log(res.body);
                 res.redirect('/blog');
             }
