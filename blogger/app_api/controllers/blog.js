@@ -50,7 +50,8 @@ module.exports.blogList = function (req, res) {
 
 module.exports.blogFindOne = function (req, res) {
     var blogId = req.body.blogId;
-    Blog.findById(blogId)
+    console.log("API finding blog: "+blogId)
+    Blog.findOne({_id:blogId})
     .then(function(blog) {
         console.log("API: "+blog)
         sendJSONresponse (res, 200, blog);
