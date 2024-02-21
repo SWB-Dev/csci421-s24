@@ -39,7 +39,13 @@ var instantiateBlog = function (body) {
 
 module.exports.blogList = function (req, res) {
     console.log ("*****Request sent to API*****")
-    sendJSONresponse (res, 200, blogs)
+    Blog.find()
+        .then(function(blogs) {
+            sendJSONresponse (res, 200, blogs)
+        })
+        .catch(function(err) {
+            console.log(err)
+        })
 }
 
 module.exports.blogAdd = function (req, res) {
