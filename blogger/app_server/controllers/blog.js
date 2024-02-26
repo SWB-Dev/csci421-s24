@@ -113,7 +113,7 @@ module.exports.blogAdd = function(req, res) {
     console.log("***** POST New Blog Form *****");
     var requestOptions, path, blogData;
     // path = '/api/blog/add';
-    path = apiOptions.blog.add;
+    path = apiOptions.uri.blog.add;
 
     blogData = {
         blogTitle: req.body.blogTitle,
@@ -155,7 +155,7 @@ module.exports.doBlogEdit = function(req, res) {
     var requestOptions, path, blogId, blogData;
     blogId = req.params.blogId;
     // path = '/api/blog/'+blogId;
-    path = apiOptions.blog.one + blogId;
+    path = apiOptions.uri.blog.one + blogId;
 
     blogData = {
         blogTitle: req.body.blogTitle,
@@ -189,7 +189,7 @@ module.exports.doBlogDelete = function(req, res) {
     var requestOptions, path, blogId;
     blogId = req.params.blogId;
     // path = '/api/blog/'+blogId;
-    path = apiOptions.blog.one + blogId;
+    path = apiOptions.uri.blog.one + blogId;
 
     requestOptions = {
         url: apiOptions.server + path,
