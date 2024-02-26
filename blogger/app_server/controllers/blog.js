@@ -2,7 +2,14 @@ const { response } = require('express');
 var request = require('request');
 
 var apiOptions = {
-    server: "http://localhost:"+process.env.PORT
+    server: "http://localhost:"+process.env.PORT,
+    uri: {
+        blog: {
+            add: "/api/blog/add",
+            all: "/api/blog",
+            one: "/api/blog/"
+        }
+    }
 }
 
 var renderBlogList = function (req, res, responseBody) {
@@ -55,7 +62,8 @@ var blogFindOne = function (req, res, callback) {
     console.log("blogFindOne: " + req.params.blogId)
     var requestOptions, path, blogId;
     var blogId = req.params.blogId;
-    path = '/api/blog/'+blogId;
+    // path = '/api/blog/'+blogId;
+    path = apiOptions.uri.blog.one + blogId;
 
     requestOptions = {
         url: apiOptions.server + path,
@@ -76,7 +84,8 @@ var blogFindOne = function (req, res, callback) {
 
 module.exports.blogList = function(req, res) {
     var requestOptions, path;
-    path = '/api/blog';
+    // path = '/api/blog';
+    path = apiOptions.uri.blog.all;
     requestOptions = {
         url: apiOptions.server + path,
         method: "GET",
@@ -103,7 +112,8 @@ module.exports.blogNew = function (req, res) {
 module.exports.blogAdd = function(req, res) {
     console.log("***** POST New Blog Form *****");
     var requestOptions, path, blogData;
-    path = '/api/blog/add';
+    // path = '/api/blog/add';
+    path = apiOptions.blog.add;
 
     blogData = {
         blogTitle: req.body.blogTitle,
@@ -113,10 +123,11 @@ module.exports.blogAdd = function(req, res) {
     requestOptions = {
         url: apiOptions.server + path,
         method: "POST",
-        json: {
-            blogTitle: req.body.blogTitle,
-            blogText: req.body.blogText
-        }
+        json: blogData
+        // json: {
+        //     blogTitle: req.body.blogTitle,
+        //     blogText: req.body.blogText
+        // }
     };
 
     request(
@@ -143,7 +154,8 @@ module.exports.doBlogEdit = function(req, res) {
     console.log("***** PUT Edit Blog Form *****");
     var requestOptions, path, blogId, blogData;
     blogId = req.params.blogId;
-    path = '/api/blog/'+blogId;
+    // path = '/api/blog/'+blogId;
+    path = apiOptions.blog.one + blogId;
 
     blogData = {
         blogTitle: req.body.blogTitle,
@@ -152,7 +164,7 @@ module.exports.doBlogEdit = function(req, res) {
 
     requestOptions = {
         url: apiOptions.server + path,
-        method: "POST",
+        method: "PUT",
         json: {
             blogTitle: req.body.blogTitle,
             blogText: req.body.blogText
@@ -176,7 +188,9 @@ module.exports.doBlogDelete = function(req, res) {
     console.log("blogDelete: " + req.params.blogid)
     var requestOptions, path, blogId;
     blogId = req.params.blogId;
-    path = '/api/blog/'+blogId;
+    // path = '/api/blog/'+blogId;
+    path = apiOptions.blog.one + blogId;
+
     requestOptions = {
         url: apiOptions.server + path,
         method: "DELETE",
