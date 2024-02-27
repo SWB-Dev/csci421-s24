@@ -9,6 +9,15 @@ var apiOptions = {
             all: "/api/blog",
             one: "/api/blog/"
         }
+    },
+    status: {
+        blog: {
+            200: "This Blog accepts your call.  Blog found!",
+            201: "You have giveth substance to the aether.  Blog created!",
+            204: "The aether winces.  Blog deleted!",
+            400: "The aether is unsure of your intentions.  Bad request!",
+            404: "This is not the Blog you are looking for.  Blog not found!",
+        }
     }
 }
 
@@ -17,10 +26,10 @@ var renderBlogList = function (req, res, responseBody) {
     if (!(responseBody instanceof Array)) {
         message = "API lookup error";
         responseBody = [];
+    } else if (!responseBody.length) {
+        message = "No blogs to display."
     } else {
-        if (!responseBody.length) {
-            message = "No blogs to display."
-        }
+        message = apiOptions.status.blog[req.statusCode]
     }
 
     res.render('blog/blog-list', {

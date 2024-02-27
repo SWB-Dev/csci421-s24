@@ -17,10 +17,15 @@ module.exports.blogList = function (req, res) {
     console.log ("*****Request sent to API: blogList*****")
     Blog.find()
         .then(function(blogs) {
-            sendJSONresponse (res, 200, blogs)
+            if (!blogs.length) {
+                sendJSONresponse (res, 204, blogs)
+            } else {
+                sendJSONresponse (res, 200, blogs)
+            }
         })
         .catch(function(err) {
-            console.log(err)
+            console.log(err);
+            sendJSONresponse (res, 400, err)
         })
 }
 
@@ -30,10 +35,16 @@ module.exports.blogFindOne = function (req, res) {
     Blog.findOne({_id:blogId})
     .then(function(blog) {
         console.log("API: "+blog)
-        sendJSONresponse (res, 200, blog);
+        if (blog) {
+            sendJSONresponse (res, 200, blog);
+        } else {
+            sendJSONresponse (res, 404, blog);
+        }
     })
     .catch(function(err) {
-        console.log(err)
+        console.log(err);
+        sendJSONresponse (res, 400, err);
+
     })
 }
 
@@ -66,7 +77,7 @@ module.exports.blogEdit = function (req, res) {
         })
         .catch(function(err) {
             console.log(err);
-            sendJSONresponse (res, 400 ,err);
+            sendJSONresponse (res, 404 ,err);
         })
 
 }
