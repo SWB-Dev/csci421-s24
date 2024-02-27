@@ -5,8 +5,10 @@ block blog-error
 
 block scripts
     script.
-        alertId = setInterval(closeAlert, 5);
-        var closeAlert = function () {
-            clearInterval(alertId);
-            document.getElementById("alert-message").click();
+        window.onload = function () {
+            alertId = setInterval(closeAlert, 1500);
+            function closeAlert() {
+                clearInterval(alertId);
+                document.getElementById("alert-error").click();
+            }
         }
