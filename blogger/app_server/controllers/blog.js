@@ -169,7 +169,7 @@ module.exports.blogAdd = function(req, res) {
             data = body;
             if (response.statusCode === 201) {
                 console.log(res.body);
-                res.redirect('/blog', response.statusCode);
+                res.redirect(response.statusCode, '/blog');
             }
         }
     )
@@ -210,7 +210,7 @@ module.exports.doBlogEdit = function(req, res) {
             data = body;
             if (response.statusCode === 200) {
                 console.log(body);
-                res.redirect('/blog');
+                res.redirect(response.statusCode, '/blog');
             }
         }
     )
