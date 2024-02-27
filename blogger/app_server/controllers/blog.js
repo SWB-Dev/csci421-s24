@@ -119,7 +119,7 @@ module.exports.blogList = function(req, res) {
                 message: null,
                 error: null
             };
-            if (response.statusCode === 200 && data.length) {
+            if (response.statusCode === 200 && body.length) {
                 renderBlogList (req, res, data);
             }
         }
