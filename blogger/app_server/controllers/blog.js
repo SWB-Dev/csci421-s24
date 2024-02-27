@@ -169,7 +169,7 @@ module.exports.blogAdd = function(req, res) {
             data = body;
             if (response.statusCode === 201) {
                 console.log(res.body);
-                res.redirect(response.statusCode, '/blog?created=true');
+                res.redirect('/blog?created=true');
             }
         }
     )
