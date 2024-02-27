@@ -1,4 +1,11 @@
 block blog-error
     .alert.alert-danger.alert-dismissible
-        button.btn-close(type="button", data-bs-dismiss="alert")
+        button#alert-error.btn-close(type="button", data-bs-dismiss="alert")
         strong= error
+
+block scripts
+    script.
+        alertId = setInterval(closeAlert, 5);
+        var closeAlers = function () {
+            document.getElementById("alert-error").click()
+        }

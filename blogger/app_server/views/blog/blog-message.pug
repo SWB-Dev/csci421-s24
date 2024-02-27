@@ -1,4 +1,11 @@
 block blog-message
     .alert.alert-success.alert-dismissible
-        button.btn-close(type="button", data-bs-dismiss="alert")
+        button#alert-message.btn-close(type="button", data-bs-dismiss="alert")
         strong= message
+
+block scripts
+    script.
+        alertId = setInterval(closeAlert, 5);
+        var closeAlers = function () {
+            document.getElementById("alert-message").click()
+        }

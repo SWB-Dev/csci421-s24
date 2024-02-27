@@ -12,14 +12,16 @@ var apiOptions = {
     },
     status: {
         blog: {
-            200: "This Blog accepts your call.  Blog found!",
-            201: "You have giveth substance to the aether.  Blog created!",
-            204: "The aether winces.  Blog deleted!",
-            400: "The aether is unsure of your intentions.  Bad request!",
-            404: "This is not the Blog you are looking for.  Blog not found!",
+            200: "This Blog accepts your call (Blog found!).",
+            201: "You have giveth substance to the aether (Blog created!).",
+            204: "The aether winces (Blog deleted!).",
+            400: "The aether is unsure of your intentions (Bad request!).",
+            404: "This is not the Blog you are looking for (Blog not found!).",
         }
     }
 }
+
+var ERROR_STATUS_CODES = [400, 404];
 
 var renderBlogList = function (req, res, responseBody) {
     var message;
@@ -39,35 +41,41 @@ var renderBlogList = function (req, res, responseBody) {
 }
 
 var renderBlogEdit = function (req, res, responseBody) {
-    var message = null;
-    var error = null;
-    if (!responseBody) {
-        message = "API lookup error";
-        responseBody = {}
-    }
+    // var message = null;
+    // var error = null;
+    // if (!responseBody) {
+    //     message = "API lookup error";
+    //     responseBody = {}
+    // }
 
-    res.render('blog/blog-edit', {
-        title:"Blog Edit",
-        blog: responseBody.blog,
-        message: responseBody.message,
-        error: responseBody.error
-    })
+    // res.render('blog/blog-edit', {
+    //     title:"Blog Edit",
+    //     blog: responseBody.blog,
+    //     message: responseBody.message,
+    //     error: responseBody.error
+    // })
+
+    responseBody.title = "Blog Edit";
+    res.render('blog/blog-edit', responseBody);
 }
 
 var renderBlogDelete = function (req, res, responseBody) {
-    var message = null;
-    var error = null;
-    if (!responseBody) {
-        message = "API lookup error";
-        responseBody = {}
-    }
+    // var message = null;
+    // var error = null;
+    // if (!responseBody) {
+    //     message = "API lookup error";
+    //     responseBody = {}
+    // }
 
-    res.render('blog/blog-delete', {
-        title:"Blog Delete",
-        blog: responseBody,
-        message: message,
-        error: error
-    })
+    // res.render('blog/blog-delete', {
+    //     title:"Blog Delete",
+    //     blog: responseBody,
+    //     message: message,
+    //     error: error
+    // })
+
+    responseBody.title = "Blog Delete";
+    res.render('blog/blog-delete', responseBody)
 }
 
 var blogFindOne = function (req, res, callback) {
@@ -86,16 +94,18 @@ var blogFindOne = function (req, res, callback) {
     request(
         requestOptions,
         function (err, response, body) {
-            if (response.statusCode == 200) {
-                var data = {
-                    blog: body,
-                    error: null,
-                    message: null
-                }
+            var data = {};
+            if (ERROR_STATUS_CODES.includes(response.statusCode)) {
+                data.blog = null;
+                data.error = apiOptions.status.blog[response.statusCode]
+                data.message = null;
+            } else {
+                data.blog = body;
+                data.error = null;
                 data.message = apiOptions.status.blog[response.statusCode]
                 console.log(body);
-                callback(req, res, data)
             }
+            callback(req, res, data)
         }
     )
 }
