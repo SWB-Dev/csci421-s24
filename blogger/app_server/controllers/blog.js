@@ -23,13 +23,12 @@ var apiOptions = {
 
 var renderBlogList = function (req, res, responseBody) {
     var message;
+    console.log(req);
     if (!(responseBody instanceof Array)) {
         message = "API lookup error";
         responseBody = [];
     } else if (!responseBody.length) {
         message = "No blogs to display."
-    } else {
-        message = apiOptions.status.blog[req.statusCode]
     }
 
     res.render('blog/blog-list', {

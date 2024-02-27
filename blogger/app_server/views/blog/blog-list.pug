@@ -16,5 +16,6 @@ block content
             a.nav-link(href="/blog/"+blog._id+"/delete")
               i.bi.bi-trash3
               span Delete
-  include ./blog-error
+  if message
+    include ./blog-error
     
