@@ -24,20 +24,32 @@ var apiOptions = {
 var ERROR_STATUS_CODES = [400, 404];
 
 var renderBlogList = function (req, res, responseBody) {
-    var message;
-    if (!(responseBody.blogs instanceof Array)) {
-        message = "API lookup error";
-        responseBody.blogs = [];
-    } else if (!responseBody.blogs.length) {
-        message = "No blogs to display."
-    }
+    // var message;
+    // if (!(responseBody.blogs instanceof Array)) {
+    //     message = "API lookup error";
+    //     responseBody.blogs = [];
+    // } else if (!responseBody.blogs.length) {
+    //     message = "No blogs to display."
+    // }
 
-    res.render('blog/blog-list', {
-        title: "Blog List",
-        blogs: responseBody.blogs,
-        message: responseBody.message,
-        error: responseBody.error
-    })
+    // res.render('blog/blog-list', {
+    //     title: "Blog List",
+    //     blogs: responseBody.blogs,
+    //     message: responseBody.message,
+    //     error: responseBody.error
+    // })
+    var status = req.query.status
+    if (status) {
+        if (ERROR_STATUS_CODES.includes(status)) {
+            responseBody.error = apiOptions.status.blog[status];
+        } else {
+            responseBody.message = apiOptions.status.blog[status];
+        }
+    }
+    responseBody.title = "Blog List";
+
+    res.render('blog/blog-list', responseBody);
+
 }
 
 var renderBlogEdit = function (req, res, responseBody) {
@@ -169,7 +181,7 @@ module.exports.blogAdd = function(req, res) {
             data = body;
             if (response.statusCode === 201) {
                 console.log(res.body);
-                res.redirect('/blog?created=true');
+                res.redirect('/blog?status='+response.statusCode);
             }
         }
     )
