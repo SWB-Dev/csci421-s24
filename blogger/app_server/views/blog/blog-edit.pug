@@ -1,10 +1,12 @@
 extends ../layout
+- var msg = message
+- var err = error
 
 block content
     h1= title
-    if error
+    if err
         include ./blog-error
-    else if message
+    else if msg
         include ./blog-message
     form(action='/blog/'+blog._id+'/save' method="post")
         .mb-3.mt-3
