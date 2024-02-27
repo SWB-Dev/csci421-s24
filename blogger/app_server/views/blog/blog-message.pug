@@ -3,12 +3,12 @@ block blog-message
         button#alert-message.btn-close(type="button", data-bs-dismiss="alert")
         strong= message
 
-//- block scripts
-//-     script.
-//-         window.onload = function () {
-//-             alertId = setInterval(closeAlert, 2);
-//-             function closeAlert() {
-//-                 clearInterval(alertId);
-//-                 document.getElementById("alert-message").click();
-//-             }
-//-         }
+block scripts
+    script.
+        window.onload = function () {
+            alertId = setInterval(closeAlert, 2);
+            function closeAlert() {
+                clearInterval(alertId);
+                document.getElementById("alert-message").click();
+            }
+        }
