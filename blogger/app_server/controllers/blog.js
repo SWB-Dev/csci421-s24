@@ -222,7 +222,7 @@ module.exports.doBlogEdit = function(req, res) {
             data = body;
             if (response.statusCode === 200) {
                 console.log(body);
-                res.redirect(response.statusCode, '/blog');
+                res.redirect('/blog?status='+response.statusCode);
             }
         }
     )
@@ -244,7 +244,7 @@ module.exports.doBlogDelete = function(req, res) {
         requestOptions,
         function (err, response, body) {
             if (response.statusCode === 204) {
-                res.redirect('/blog')
+                res.redirect('/blog?status='+response.statusCode)
             } else {
                 console.log(err)
             }
