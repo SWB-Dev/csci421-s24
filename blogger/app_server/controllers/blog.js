@@ -83,7 +83,8 @@ var blogFindOne = function (req, res, callback) {
         requestOptions,
         function (err, response, body) {
             if (response.statusCode == 200) {
-                console.log(body)
+                body.message = apiOptions.status.blog[response.statusCode]
+                console.log(body);
                 callback(req, res, body)
             }
         }
@@ -145,7 +146,7 @@ module.exports.blogAdd = function(req, res) {
             data = body;
             if (response.statusCode === 201) {
                 console.log(res.body);
-                res.redirect('/blog');
+                res.redirect('/blog', response.statusCode);
             }
         }
     )

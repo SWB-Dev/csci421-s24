@@ -2,6 +2,10 @@ extends ../layout
 
 block content
     h1= title
+    if error
+        include ./blog-error
+    else if message
+        include ./blog-message
     form(action='/blog/'+blog._id+'/save' method="post")
         .mb-3.mt-3
             label.form-label(for="blogTitle") Blog Title

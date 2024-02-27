@@ -2,6 +2,10 @@ extends ../layout
 
 block content
   h1= title
+  if error
+    include ./blog-error
+  else if message
+    include ./blog-message
   each blog, idx in blogs
     .card
       .card-body
@@ -16,6 +20,4 @@ block content
             a.nav-link(href="/blog/"+blog._id+"/delete")
               i.bi.bi-trash3
               span Delete
-  if message
-    include ./blog-error
     
