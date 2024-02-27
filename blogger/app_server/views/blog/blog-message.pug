@@ -6,6 +6,7 @@ block blog-message
 block scripts
     script.
         alertId = setInterval(closeAlert, 5);
-        var closeAlers = function () {
-            document.getElementById("alert-message").click()
+        var closeAlert = function () {
+            clearInterval(alertId);
+            document.getElementById("alert-message").click();
         }
