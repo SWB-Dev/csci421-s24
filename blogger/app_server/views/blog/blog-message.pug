@@ -6,7 +6,7 @@ block blog-message
 block scripts
     script.
         window.onload = function () {
-            alertId = setInterval(closeAlert, 2);
+            alertId = setInterval(closeAlert, 2000);
             function closeAlert() {
                 clearInterval(alertId);
                 document.getElementById("alert-message").click();
