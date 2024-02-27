@@ -32,13 +32,15 @@ var renderBlogList = function (req, res, responseBody) {
 
     res.render('blog/blog-list', {
         title: "Blog List",
-        blogs: responseBody,
-        message: message
+        blogs: responseBody.blogs,
+        message: responseBody.message,
+        error: responseBody.error
     })
 }
 
 var renderBlogEdit = function (req, res, responseBody) {
-    var message;
+    var message = null;
+    var error = null;
     if (!responseBody) {
         message = "API lookup error";
         responseBody = {}
@@ -46,13 +48,15 @@ var renderBlogEdit = function (req, res, responseBody) {
 
     res.render('blog/blog-edit', {
         title:"Blog Edit",
-        blog: responseBody,
-        message: message
+        blog: responseBody.blog,
+        message: responseBody.message,
+        error: responseBody.error
     })
 }
 
 var renderBlogDelete = function (req, res, responseBody) {
-    var message;
+    var message = null;
+    var error = null;
     if (!responseBody) {
         message = "API lookup error";
         responseBody = {}
@@ -61,7 +65,8 @@ var renderBlogDelete = function (req, res, responseBody) {
     res.render('blog/blog-delete', {
         title:"Blog Delete",
         blog: responseBody,
-        message: message
+        message: message,
+        error: error
     })
 }
 
@@ -82,9 +87,14 @@ var blogFindOne = function (req, res, callback) {
         requestOptions,
         function (err, response, body) {
             if (response.statusCode == 200) {
-                body.message = apiOptions.status.blog[response.statusCode]
+                var data = {
+                    blog: body,
+                    error: null,
+                    message: null
+                }
+                data.message = apiOptions.status.blog[response.statusCode]
                 console.log(body);
-                callback(req, res, body)
+                callback(req, res, data)
             }
         }
     )
@@ -104,7 +114,11 @@ module.exports.blogList = function(req, res) {
         requestOptions,
         function (err, response, body) {
             var data;
-            data = body;
+            data = {
+                blogs: body,
+                message: null,
+                error: null
+            };
             if (response.statusCode === 200 && data.length) {
                 renderBlogList (req, res, data);
             }
