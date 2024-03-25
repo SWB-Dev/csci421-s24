@@ -44,11 +44,18 @@ angular.
             console.log(ctrl.blogId);
             $http.get('/api/blog/' + ctrl.blogId)
                 .then((value) => {
-                    console.log(value);
-                    ctrl.blog = value.data;
-                    ctrl.formData = ctrl.blog;
+                    if (value.status === 400) {
+                        $location.path('/not-found');
+                    } else {
+                        console.log(value);
+                        ctrl.blog = value.data;
+                        ctrl.formData = ctrl.blog;
+                    }
                 })
-                .catch((e) => console.log(e));
+                .catch((e) => {
+                    console.log(e);
+                    $location.path('/not-found')
+                });
             
             ctrl.onSubmit = function () {
                 console.log(ctrl.formData);
@@ -60,7 +67,10 @@ angular.
                         ctrl.formData.blogText = ctrl.blog.blogText;
                         $location.path('/blogs');
                     })
-                    .catch((e) => console.log(e));
+                    .catch((e) => {
+                        console.log(e);
+                        $location.path('/not-found')
+                    });
             };
 
             ctrl.onCancel = function () {
@@ -80,11 +90,18 @@ angular.
             console.log(ctrl.blogId);
             $http.get('/api/blog/' + ctrl.blogId)
                 .then((value) => {
-                    console.log(value);
-                    ctrl.blog = value.data;
-                    ctrl.formData = ctrl.blog;
+                    if (value.status == 400) {
+                        $location.path('/not-found');
+                    } else {
+                        console.log(value);
+                        ctrl.blog = value.data;
+                        ctrl.formData = ctrl.blog;
+                    }
                 })
-                .catch((e) => console.log(e));
+                .catch((e) => {
+                    console.log(e);
+                    $location.path('/not-found')
+                });
             
             ctrl.onSubmit = function () {
                 console.log(ctrl.formData);
