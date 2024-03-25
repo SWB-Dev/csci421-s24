@@ -1,0 +1,19 @@
+<navigation></navigation>
+<div class="card" ng-repeat="blog in $ctrl.data">
+    <div class="card-body">
+        <h4 class="card-title">{{blog.blogTitle}}</h4>
+        <p class="card-text">{{blog.blogText}}</p>
+        <ul class="nav nav-pills justicy-content-end">
+            <li class="nav-item">
+                <a href="#!/blogs/edit/{{blog._id}}" class="nav-link">
+                    <i class="bi bi-pencil-square"><span>Edit</span></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="#!/blogs/delete/{{blog._id}}" class="nav-link">
+                    <i class="bi bi-trash3"><span>Delete</span></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
