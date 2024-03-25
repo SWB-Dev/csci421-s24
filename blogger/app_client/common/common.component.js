@@ -12,7 +12,7 @@ angular.
     component('greetUser', {
         templateUrl: 'common/templates/greetuser.template.html',
         controller: function GreetUserController($scope) {
-            this.user = 'world';
+            this.title = "Steven Barnes";
         }
     });
 

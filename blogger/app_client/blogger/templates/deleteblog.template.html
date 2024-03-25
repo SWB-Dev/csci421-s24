@@ -1,0 +1,22 @@
+<navigation></navigation>
+<h1>{{$ctrl.title}}</h1>
+<div class="container">
+    <form id="editBlog" role="form" name="editBlog" ng-submit="$ctrl.onSubmit()">
+        <div class="mb-3 mt-3">
+            <label for="blogTitle" class="form-label">Blog Title</label>
+            <input id="blogTitle" type="text" class="form-control" placeholder="Blog Title" name="blogTitle" ng-model="$ctrl.formData.blogTitle", value="{{$ctrl.blog.blogTitle}}" readonly>
+        </div>
+        <div class="mb-3 mt-3">
+            <label for="blogText" class="form-label">Blog Text</label>
+            <textarea name="blogText" id="blogText" cols="30" rows="10" class="form-control" ng-model="$ctrl.formData.blogText" readonly></textarea>
+        </div>
+        <ul class="nav nav-pills">
+            <li class="nav-item px-2">
+                <button class="btn btn-danger" type="submit">Delete</button>
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-primary" ng-click="$ctrl.onCancel()">Cancel</button>
+            </li>
+        </ul>
+    </form>
+</div>

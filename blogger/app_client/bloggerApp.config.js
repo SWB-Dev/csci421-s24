@@ -13,6 +13,12 @@ config(['$routeProvider',
             when('/blogs/add', {
                 template: '<blog-add></blog-add>'
             }).
+            when('/blogs/edit/:blogId', {
+                template: '<blog-edit></blog-edit>'
+            }).
+            when('/blogs/delete/:blogId', {
+                template: "<blog-delete></blog-delete>"
+            }).
             when('/not-found', {
                 template: '<not-found></not-found>'
             }).
