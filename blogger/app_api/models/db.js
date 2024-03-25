@@ -21,10 +21,12 @@ mongoose.connection.on('disconnected', function() {
 
 // Closes (disconnects) from Mongoose DB upon shitdown
 gracefulShutdown = function (msg, callback) {
-    mongoose.connection.close(function () {
-        console.log('Mongoose disconnected through ' + msg);
-        callback();
-    });
+    mongoose.connection.close()
+        .then(function () {
+            console.log('Mongoose disconnected through ' + msg);
+            callback();
+        })
+        .catch((err) => console.log(err));
 };
 
 // For nodemon restarts
@@ -47,3 +49,5 @@ process.on('SIGTERM', function() {
         process.exit(0);
     });
 });
+
+require('./blogs');

@@ -1,0 +1,11 @@
+<navigation></navigation>
+<ul>
+    <li ng-repeat="d in $ctrl.data">
+        <div>
+            <h2>{{ d.blogTitle }}</h2>
+            <p>{{ d.blogText }}</p>
+            <a href="#!blog/edit/{{d.__id}}">Edit</a>
+        </div>
+    </li>
+</ul>
+<p>{{ $ctrl.data }}</p>

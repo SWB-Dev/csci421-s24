@@ -1,0 +1,15 @@
+<navigation></navigation>
+<div class="container">
+    <h1>{{ $ctrl.title }}</h1>
+    <form id="addBlog" role="form" name="addBlog" ng-submit="$ctrl.onSubmit()">
+        <div class="mb-3 mt-3">
+            <label class="form-label" for="blogTitle">Blog Title</label>
+            <input id="blogTitle" class="form-control" type="text" placeholder="Blog Title" name="blogTitle" ng-model="$ctrl.formData.blogTitle">
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="blogText">Blog Text</label>
+            <textarea id="blogText" class="form-control" name="blogText" cols="30" rows="10" ng-model="$ctrl.formData.blogText"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>

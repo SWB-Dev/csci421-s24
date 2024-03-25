@@ -1,0 +1,14 @@
+block blog-error
+    .alert.alert-danger.alert-dismissible
+        button#alert-error.btn-close(type="button", data-bs-dismiss="alert")
+        strong= error
+
+block scripts
+    script.
+        window.onload = function () {
+            alertId = setInterval(closeAlert, 1500);
+            function closeAlert() {
+                clearInterval(alertId);
+                document.getElementById("alert-error").click();
+            }
+        }

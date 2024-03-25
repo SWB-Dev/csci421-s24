@@ -1,1 +1,12 @@
-extends ../under-construction
+extends ../layout
+
+block content
+    h1= title
+    form(action='/blog/add' method="post")
+        .mb-3.mt-3
+            label.form-label(for="blogTitle") Blog Title
+            input#blogTitle.form-control(type="text", placeholder="Blog Title", name="blogTitle")
+        .mb-3
+            label.form-label(for="blogText") Blog Text
+            textarea#blogText.form-control(name="blogText", cols="30", rows="10")
+        button.btn.btn-primary(type="submit") Submit
