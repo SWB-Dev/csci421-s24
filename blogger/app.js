@@ -1,3 +1,4 @@
+require('dotenv').config();
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,10 +6,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const { minify } = require("terser");
 var fs = require('fs');
+var passport = require('passport');
 
 // Setup database environment
-require('dotenv').config();
 require('./app_api/models/db');
+require('./app_api/config/passport');
 
 // var routes = require('./app_server/routes/index');
 var routesAPI = require('./app_api/routes/index');
@@ -25,6 +27,9 @@ var appClientFiles = [
   path.join(__dirname, 'app_client','bloggerApp.config.js'),
   path.join(__dirname, 'app_client','common','common.module.js'),
   path.join(__dirname, 'app_client','common', 'common.component.js'),
+  path.join(__dirname, 'app_client','common', 'navigation', 'navigation.component.js'),
+  path.join(__dirname, 'app_client','common', 'auth', 'auth.component.js'),
+  path.join(__dirname, 'app_client','common', 'services', 'auth.service.js'),
   path.join(__dirname, 'app_client','common', 'services', 'bloggerData.service.js'),
   path.join(__dirname, 'app_client','blogger', 'blogger.module.js'),
   path.join(__dirname, 'app_client','blogger', 'blogger.component.js')
@@ -58,6 +63,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'app_client')));
+app.use(passport.initialize());
 
 // app.use('/', routes);
 app.use('/api', routesAPI);

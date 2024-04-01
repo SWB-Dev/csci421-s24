@@ -3,12 +3,17 @@ angular.
     module('blogger').
     component('blogList', {
         templateUrl: 'blogger/templates/bloglist.template.html',
-        controller: function BlogListController ($scope, $http) {
+        controller: function BlogListController ($http, authentication) {
             var ctrl = this;
             ctrl.title = "View Blogs";
+            
+            ctrl.isCurrentUser = function (blogId) {
+                var currentUser = authentication.currentUser();
+                return authentication.isLoggedIn();
+            }
+
             $http.get('/api/blog')
                 .then((value) => {
-                    console.log(value);
                     ctrl.data = value.data;
                 })
                 .catch((e) => console.log(e));
@@ -19,12 +24,15 @@ angular.
     module('blogger').
     component('blogAdd', {
         templateUrl: 'blogger/templates/addblog.template.html',
-        controller: function BlogAddController ($scope, $http, $location) {
+        controller: function BlogAddController ($http, $location, authentication) {
             var ctrl = this;
             ctrl.title = 'Add Blog';
             ctrl.onSubmit = function () {
                 console.log(ctrl.formData);
-                $http.post('/api/blog/add', ctrl.formData)
+                var headers = {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                };
+                $http.post('/api/blog/add', ctrl.formData, {headers: headers})
                     .then((v) => {
                         $location.path('/blogs')
                     })
@@ -37,17 +45,15 @@ angular.
     module('blogger').
     component('blogEdit', {
         templateUrl: 'blogger/templates/editblog.template.html',
-        controller: function BlogEditController ($scope, $routeParams, $http, $location) {
+        controller: function BlogEditController ($routeParams, $http, $location, authentication) {
             var ctrl = this;
             ctrl.title = "Edit Blog";
             ctrl.blogId = $routeParams.blogId;
-            console.log(ctrl.blogId);
             $http.get('/api/blog/' + ctrl.blogId)
                 .then((value) => {
                     if (value.status === 400) {
                         $location.path('/not-found');
                     } else {
-                        console.log(value);
                         ctrl.blog = value.data;
                         ctrl.formData = ctrl.blog;
                     }
@@ -56,12 +62,13 @@ angular.
                     console.log(e);
                     $location.path('/not-found')
                 });
-            
+
             ctrl.onSubmit = function () {
-                console.log(ctrl.formData);
-                $http.put('/api/blog/'+ctrl.blogId, ctrl.formData)
+                var headers = {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                };
+                $http.put('/api/blog/'+ctrl.blogId, ctrl.formData, {headers: headers})
                     .then((value) => {
-                        console.log(value);
                         ctrl.blog = value.data;
                         ctrl.formData.blogTitle = ctrl.blog.blogTitle;
                         ctrl.formData.blogText = ctrl.blog.blogText;
@@ -83,17 +90,15 @@ angular.
     module('blogger').
     component('blogDelete', {
         templateUrl: 'blogger/templates/deleteblog.template.html',
-        controller: function BlogDeleteController ($scope, $routeParams, $http, $location) {
+        controller: function BlogDeleteController ($routeParams, $http, $location, authentication) {
             var ctrl = this;
             ctrl.title = "Delete Blog";
             ctrl.blogId = $routeParams.blogId;
-            console.log(ctrl.blogId);
             $http.get('/api/blog/' + ctrl.blogId)
                 .then((value) => {
                     if (value.status == 400) {
                         $location.path('/not-found');
                     } else {
-                        console.log(value);
                         ctrl.blog = value.data;
                         ctrl.formData = ctrl.blog;
                     }
@@ -104,10 +109,11 @@ angular.
                 });
             
             ctrl.onSubmit = function () {
-                console.log(ctrl.formData);
-                $http.delete('/api/blog/'+ctrl.blogId)
+                var headers = {
+                    Authorization: 'Bearer ' + authentication.getToken()
+                };
+                $http.delete('/api/blog/'+ctrl.blogId, {headers: headers})
                     .then((value) => {
-                        console.log(value);
                         $location.path('/blogs');
                     })
                     .catch((e) => console.log(e));

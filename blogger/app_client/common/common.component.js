@@ -15,9 +15,3 @@ angular.
             this.title = "Steven Barnes";
         }
     });
-
-angular.
-    module('common').
-    component('navigation',{
-        templateUrl: 'common/navigation/navigation.template.html'
-    });

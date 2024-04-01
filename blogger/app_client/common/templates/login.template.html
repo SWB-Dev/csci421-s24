@@ -1,0 +1,18 @@
+<navigation></navigation>
+<div class="container">
+    <h1>{{ $ctrl.title }}</h1>
+    <form id="login" role="form" name="login" ng-submit="$ctrl.onSubmit()">
+        <div class="mb-3 mt-3">
+            <label class="form-label" for="userEmail">Email</label>
+            <input id="userEmail" class="form-control" type="text" placeholder="email" name="userEmail" ng-model="$ctrl.credentials.email" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="userPassword">Password</label>
+            <input id="userPassword" class="form-control" type="password" placeholder="password" name="userPassword" ng-model="$ctrl.credentials.password" required>
+        </div>
+        <p ng-show="$ctrl.hasFormError" class="mb-3 text-danger">
+            {{$ctrl.formError}}
+        </p>
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+</div>

@@ -1,11 +1,11 @@
 <navigation></navigation>
 <h1>{{$ctrl.title}}</h1>
 <div class="container">
-    <div class="card" ng-repeat="blog in $ctrl.data">
+    <div class="card m-1" ng-repeat="blog in $ctrl.data">
         <div class="card-body">
             <h4 class="card-title">{{blog.blogTitle}}</h4>
             <p class="card-text">{{blog.blogText}}</p>
-            <ul class="nav nav-pills justicy-content-end">
+            <ul ng-show="$ctrl.isCurrentUser()" class="nav nav-pills justicy-content-end">
                 <li class="nav-item">
                     <a href="#!/blogs/edit/{{blog._id}}" class="nav-link">
                         <i class="bi bi-pencil-square"><span>Edit</span></i>
