@@ -107,13 +107,14 @@ module.exports.blogEdit = function (req, res) {
 module.exports.blogDelete = function (req, res) {
     console.log("****Request sent to API: blogDelete*****");
     var blogId = req.params.blogId;
-    var blogToDelete;
 
     Blog.findOne({_id:blogId})
     .then(function(blog) {
         console.log("API: "+blog);
         if (blog) {
-            blogToDelete = blog;
+            if (!isBlogAuthor(blog, req.payload)) {
+                sendJSONresponse(res, 401, blog);
+            }
         } else {
             sendJSONresponse (res, 204, blog);
         }
@@ -124,12 +125,7 @@ module.exports.blogDelete = function (req, res) {
 
     });
 
-    console.log(req.payload);
-    if (blogToDelete && isBlogAuthor(blogToDelete, req.payload)) {
-        Blog.findByIdAndDelete(blogId)
-            .then(() => sendJSONresponse (res, 204, null))
-            .catch((err) => sendJSONresponse (res, 404, err));
-    } else {
-        sendJSONresponse(res, 401, blogToDelete);
-    }
+    Blog.findByIdAndDelete(blogId)
+        .then(() => sendJSONresponse (res, 204, null))
+        .catch((err) => sendJSONresponse (res, 404, err));
 }
