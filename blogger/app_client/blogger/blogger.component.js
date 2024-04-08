@@ -101,6 +101,9 @@ angular.
                         ctrl.blog = value.data;
                         ctrl.formData = ctrl.blog;
                     }
+                    if (ctrl.blog.authorEmail && !(ctrl.blog.authorEmail === ctrl.user.email)) {
+                        $location.path('/unauthorized');
+                    }
                 })
                 .catch((e) => {
                     console.log(e);
