@@ -15,3 +15,9 @@ angular.
             this.title = "Steven Barnes";
         }
     });
+
+angular.
+    module('common').
+    component('unauthorized', {
+        templateUrl: 'common/templates/unauthorized.template.html'
+    });

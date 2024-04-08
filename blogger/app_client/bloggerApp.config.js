@@ -29,6 +29,9 @@ config(['$routeProvider',
                 template: '<register></register>'
             })
             .when('/logout', {})
+            .when('/unauthorized', {
+                template: '<unauthorized></unauthorized>'
+            })
             .otherwise('/not-found');
     }
 ]);
