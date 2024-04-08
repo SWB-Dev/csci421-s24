@@ -1,9 +1,3 @@
-var isBlogAuthor = function (blog) {
-    console.log("Checking blog author...")
-    var currentUser = authentication.currentUser();
-    return authentication.isLoggedIn() && currentUser.email === blog.authorEmail;
-};
-
 
 angular.
     module('blogger').
@@ -12,8 +6,8 @@ angular.
         controller: function BlogListController ($http, authentication) {
             var ctrl = this;
             ctrl.title = "View Blogs";
-            
-            ctrl.isCurrentUser = isBlogAuthor;
+            ctrl.user = authentication.currentUser();
+            ctrl.isCurrentUser = (blog) => blog.authorEmail === user.email;
 
             $http.get('/api/blog')
                 .then((value) => {
@@ -52,6 +46,7 @@ angular.
             var ctrl = this;
             ctrl.title = "Edit Blog";
             ctrl.blogId = $routeParams.blogId;
+            ctrl.user = authentication.currentUser();
             $http.get('/api/blog/' + ctrl.blogId)
                 .then((value) => {
                     if (value.status === 400) {
@@ -66,7 +61,7 @@ angular.
                     $location.path('/not-found')
                 });
 
-            if (!isBlogAuthor(ctrl.blog)) {
+            if (!ctrl.blog.authorEmail === user.email) {
                 $location.path('/blogs');
             }
 
