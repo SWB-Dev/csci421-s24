@@ -93,6 +93,7 @@ angular.
             var ctrl = this;
             ctrl.title = "Delete Blog";
             ctrl.blogId = $routeParams.blogId;
+            ctrl.user = authentication.currentUser();
             $http.get('/api/blog/' + ctrl.blogId)
                 .then((value) => {
                     if (value.status == 400) {
