@@ -7,7 +7,7 @@ angular.
             var ctrl = this;
             ctrl.title = "View Blogs";
             ctrl.user = authentication.currentUser();
-            ctrl.isCurrentUser = (blog) => blog.authorEmail === user.email;
+            ctrl.isCurrentUser = (blog) => blog.authorEmail === ctrl.user.email;
 
             $http.get('/api/blog')
                 .then((value) => {
@@ -61,7 +61,7 @@ angular.
                     $location.path('/not-found')
                 });
 
-            if (!ctrl.blog.authorEmail === user.email) {
+            if (!ctrl.blog.authorEmail === ctrl.user.email) {
                 $location.path('/blogs');
             }
 
