@@ -61,7 +61,7 @@ angular.
                     $location.path('/not-found')
                 });
 
-            if (!ctrl.blog.authorEmail === ctrl.user.email) {
+            if (!ctrl.blog.authorEmail || !ctrl.blog.authorEmail === ctrl.user.email) {
                 $location.path('/blogs');
             }
 
