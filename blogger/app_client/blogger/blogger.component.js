@@ -1,3 +1,8 @@
+var isBlogAuthor = function (blog) {
+    var currentUser = authentication.currentUser();
+    return authentication.isLoggedIn() && currentUser.email === blog.authorEmail;
+};
+
 
 angular.
     module('blogger').
@@ -7,10 +12,7 @@ angular.
             var ctrl = this;
             ctrl.title = "View Blogs";
             
-            ctrl.isCurrentUser = function (blogId) {
-                var currentUser = authentication.currentUser();
-                return authentication.isLoggedIn();
-            }
+            ctrl.isCurrentUser = isBlogAuthor;
 
             $http.get('/api/blog')
                 .then((value) => {
@@ -63,7 +65,11 @@ angular.
                     $location.path('/not-found')
                 });
 
-            ctrl.onSubmit = function () {
+            if (!isBlogAuthor(ctrl.blog)) {
+                $location.path('/blogs');
+            }
+
+            ctrl.onSubmit = () => {
                 var headers = {
                     Authorization: 'Bearer ' + authentication.getToken()
                 };
@@ -80,9 +86,7 @@ angular.
                     });
             };
 
-            ctrl.onCancel = function () {
-                $location.path('/blogs');
-            };
+            ctrl.onCancel = () => $location.path('/blogs');
         }
     });
 

@@ -5,7 +5,8 @@
         <div class="card-body">
             <h4 class="card-title">{{blog.blogTitle}}</h4>
             <p class="card-text">{{blog.blogText}}</p>
-            <ul ng-show="$ctrl.isCurrentUser()" class="nav nav-pills justicy-content-end">
+            <p class="cart-footer"><em>Published by {{blog.authorName || "Mysterious Author"}} on {{blog.createdOn | date: 'medium'}}</em></p>
+            <ul ng-show="$ctrl.isCurrentUser(blog)" class="nav nav-pills justicy-content-end">
                 <li class="nav-item">
                     <a href="#!/blogs/edit/{{blog._id}}" class="nav-link">
                         <i class="bi bi-pencil-square"><span>Edit</span></i>
