@@ -26,6 +26,7 @@ angular.
         controller: function BlogAddController ($http, $location, authentication) {
             if(!authentication.isLoggedIn()) {
                 $location.path('/unauthorized');
+                return;
             }
 
             var ctrl = this;
@@ -37,7 +38,8 @@ angular.
                 };
                 $http.post('/api/blog/add', ctrl.formData, {headers: headers})
                     .then((v) => {
-                        $location.path('/blogs')
+                        $location.path('/blogs');
+                        return;
                     })
                     .catch((e) => console.log(e));
             };
@@ -51,6 +53,7 @@ angular.
         controller: function BlogEditController ($routeParams, $http, $location, authentication) {
             if(!authentication.isLoggedIn()) {
                 $location.path('/unauthorized');
+                return;
             }
 
             var ctrl = this;
@@ -67,11 +70,13 @@ angular.
                     }
                     if (ctrl.blog.authorEmail && !(ctrl.blog.authorEmail === ctrl.user.email)) {
                         $location.path('/unauthorized');
+                        return;
                     }
                 })
                 .catch((e) => {
                     console.log(e);
-                    $location.path('/not-found')
+                    $location.path('/not-found');
+                    return;
                 });
 
             ctrl.onSubmit = () => {
@@ -84,10 +89,12 @@ angular.
                         ctrl.formData.blogTitle = ctrl.blog.blogTitle;
                         ctrl.formData.blogText = ctrl.blog.blogText;
                         $location.path('/blogs');
+                        return;
                     })
                     .catch((e) => {
                         console.log(e);
-                        $location.path('/not-found')
+                        $location.path('/not-found');
+                        return;
                     });
             };
 
@@ -102,6 +109,7 @@ angular.
         controller: function BlogDeleteController ($routeParams, $http, $location, authentication) {
             if(!authentication.isLoggedIn()) {
                 $location.path('/unauthorized');
+                return;
             }
             
             var ctrl = this;
@@ -112,20 +120,24 @@ angular.
                 .then((value) => {
                     if (value.status == 400) {
                         $location.path('/not-found');
+                        return;
                     } else {
                         ctrl.blog = value.data;
                         ctrl.formData = ctrl.blog;
                     }
                     if (!ctrl.blog.authorEmail) {
                         $location.path('/unauthorized');
+                        return;
                     }
                     if (ctrl.blog.authorEmail && !(ctrl.blog.authorEmail === ctrl.user.email)) {
                         $location.path('/unauthorized');
+                        return;
                     }
                 })
                 .catch((e) => {
                     console.log(e);
-                    $location.path('/not-found')
+                    $location.path('/not-found');
+                    return;
                 });
             
             ctrl.onSubmit = function () {
@@ -135,12 +147,14 @@ angular.
                 $http.delete('/api/blog/'+ctrl.blogId, {headers: headers})
                     .then((value) => {
                         $location.path('/blogs');
+                        return;
                     })
                     .catch((e) => console.log(e));
             };
 
             ctrl.onCancel = function () {
                 $location.path('/blogs');
+                return;
             };
         }
     });
