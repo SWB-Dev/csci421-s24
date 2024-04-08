@@ -7,7 +7,9 @@ angular.
             var ctrl = this;
             ctrl.title = "View Blogs";
             ctrl.user = authentication.currentUser();
-            ctrl.isCurrentUser = (blog) => blog.authorEmail === ctrl.user.email;
+            ctrl.isCurrentUser = (blog) => {
+                return authentication.isLoggedIn() && (blog.authorEmail === ctrl.user.email);
+            };
 
             $http.get('/api/blog')
                 .then((value) => {
@@ -22,6 +24,10 @@ angular.
     component('blogAdd', {
         templateUrl: 'blogger/templates/addblog.template.html',
         controller: function BlogAddController ($http, $location, authentication) {
+            if(!authentication.isLoggedIn()) {
+                $location.path('/unauthorized');
+            }
+
             var ctrl = this;
             ctrl.title = 'Add Blog';
             ctrl.onSubmit = function () {
@@ -43,6 +49,10 @@ angular.
     component('blogEdit', {
         templateUrl: 'blogger/templates/editblog.template.html',
         controller: function BlogEditController ($routeParams, $http, $location, authentication) {
+            if(!authentication.isLoggedIn()) {
+                $location.path('/unauthorized');
+            }
+
             var ctrl = this;
             ctrl.title = "Edit Blog";
             ctrl.blogId = $routeParams.blogId;
@@ -90,6 +100,10 @@ angular.
     component('blogDelete', {
         templateUrl: 'blogger/templates/deleteblog.template.html',
         controller: function BlogDeleteController ($routeParams, $http, $location, authentication) {
+            if(!authentication.isLoggedIn()) {
+                $location.path('/unauthorized');
+            }
+            
             var ctrl = this;
             ctrl.title = "Delete Blog";
             ctrl.blogId = $routeParams.blogId;
