@@ -1,4 +1,5 @@
 var isBlogAuthor = function (blog) {
+    console.log("Checking blog author...")
     var currentUser = authentication.currentUser();
     return authentication.isLoggedIn() && currentUser.email === blog.authorEmail;
 };
