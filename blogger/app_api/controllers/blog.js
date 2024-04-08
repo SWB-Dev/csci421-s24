@@ -4,14 +4,16 @@ var Blog = mongoose.model('Blogs')
 var sendJSONresponse = function (res, status, content) {
     res.status (status);
     res.json (content);
-  };
+};
 
 var instantiateBlog = function (body) {
     return {
         blogTitle: body.blogTitle,
         blogText: body.blogText
     }
-}
+};
+
+var isBlogAuthor = (blog, user) => blog.authorEmail === user.email;
 
 module.exports.blogList = function (req, res) {
     console.log ("*****Request sent to API: blogList*****")
@@ -38,7 +40,7 @@ module.exports.blogFindOne = function (req, res) {
         if (blog) {
             sendJSONresponse (res, 200, blog);
         } else {
-            sendJSONresponse (res, 404, blog);
+            sendJSONresponse (res, 204, blog);
         }
     })
     .catch(function(err) {
@@ -49,8 +51,11 @@ module.exports.blogFindOne = function (req, res) {
 }
 
 module.exports.blogAdd = function (req, res) {
-    console.log ("*****Request sent to API: blogAdd*****")
+    console.log ("*****Request sent to API: blogAdd*****");
+    var user = req.payload;
     var blog = instantiateBlog (req.body)
+    blog['authorEmail'] = user.email;
+    blog['authorName'] = user.name;
     Blog.create (blog)
         .then(function (newBlog) {
             console.log("***** Created blog *****\n"+newBlog)
@@ -70,6 +75,23 @@ module.exports.blogEdit = function (req, res) {
         "blogText": req.body.blogText
     }}
 
+    Blog.findOne({_id:blogId})
+    .then(function(blog) {
+        console.log("API: "+blog);
+        if (blog) {
+            if (!isBlogAuthor(blog, req.payload)) {
+                sendJSONresponse(res, 401, blog);
+            }
+        } else {
+            sendJSONresponse (res, 204, blog);
+        }
+    })
+    .catch(function(err) {
+        console.log(err);
+        sendJSONresponse (res, 400, err);
+
+    });
+
     Blog.findByIdAndUpdate(blogId, updates)
         .then(function(blog) {
             console.log("***** Updated blog: "+blogId+" *****");
@@ -78,15 +100,36 @@ module.exports.blogEdit = function (req, res) {
         .catch(function(err) {
             console.log(err);
             sendJSONresponse (res, 404 ,err);
-        })
+        });
 
 }
 
 module.exports.blogDelete = function (req, res) {
     console.log("****Request sent to API: blogDelete*****");
     var blogId = req.params.blogId;
+    var blogToDelete;
 
-    Blog.findByIdAndDelete(blogId)
-        .then(() => sendJSONresponse (res, 204, null))
-        .catch((err) => sendJSONresponse (res, 404, err))
+    Blog.findOne({_id:blogId})
+    .then(function(blog) {
+        console.log("API: "+blog);
+        if (blog) {
+            blogToDelete = blog;
+        } else {
+            sendJSONresponse (res, 204, blog);
+        }
+    })
+    .catch(function(err) {
+        console.log(err);
+        sendJSONresponse (res, 400, err);
+
+    });
+
+    console.log(req.payload);
+    if (blogToDelete && isBlogAuthor(blogToDelete, req.payload)) {
+        Blog.findByIdAndDelete(blogId)
+            .then(() => sendJSONresponse (res, 204, null))
+            .catch((err) => sendJSONresponse (res, 404, err));
+    } else {
+        sendJSONresponse(res, 401, blogToDelete);
+    }
 }
