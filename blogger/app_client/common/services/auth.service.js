@@ -57,7 +57,7 @@ angular.module('bloggerApp').service('authentication', authentication);
             if (isLoggedIn()) {
                 var token = getToken();
                 var payload = getPayload(token);
-                console.log("AUTH SERVICE: Current user", JSON.stringify(payload));
+                // console.log("AUTH SERVICE: Current user", JSON.stringify(payload));
                 return {
                     email: payload.email,
                     name: payload.name
