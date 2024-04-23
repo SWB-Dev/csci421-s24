@@ -28,7 +28,7 @@ module.exports.addWords = function (req, res) {
 module.exports.createPictionary = function (req, res) {
     Pictionary.find()
         .then((p) => {
-            if (!p || !array.length) {
+            if (!p || !p.length) {
                 Pictionary.create({name:GAME_NAME})
                     .then((p2) => sendJSONresponse(res, 200, p2));
                 return;
