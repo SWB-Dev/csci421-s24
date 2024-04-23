@@ -5,30 +5,33 @@ angular.
         controller: function PictionaryGameController ($http, $scope, $interval, authentication) {
             var ctrl = this;
             ctrl.title = "Pictionary";
-            ctrl.guess = "";
-            ctrl.isCorrect = false;
-            ctrl.isDrawing = false;
-            ctrl.tickData = {}
-            ctrl.playerInfo = {
-                l: "Guessing",
-                r: "",
-                isCorrect: false,
-                isDrawing: false
-            }
-            ctrl.leaderboard = {};
-            ctrl.role = "Guessing"
-            ctrl.word = ""
-            ctrl.guesses = null;
             ctrl.user = authentication.currentUser();
             ctrl.headers = {
                 Authorization: ''
             };
-            ctrl.drawTimerSeconds = null;
-            ctrl.intervalId = null;
-            ctrl.intervals = [];
-            ctrl.lastCapturedImage = null;
-            ctrl.isSendingImage = false;
-            ctrl.clearedCanvas = false;
+
+            ctrl.resetGameState = function () {
+                ctrl.guess = "";
+                ctrl.isCorrect = false;
+                ctrl.isDrawing = false;
+                ctrl.tickData = {}
+                ctrl.playerInfo = {
+                    l: "Guessing",
+                    r: "",
+                    isCorrect: false,
+                    isDrawing: false
+                }
+                ctrl.leaderboard = {};
+                ctrl.role = "Guessing"
+                ctrl.word = ""
+                ctrl.guesses = null;
+                ctrl.drawTimerSeconds = null;
+                ctrl.intervalId = null;
+                ctrl.intervals = [];
+                ctrl.lastCapturedImage = null;
+                ctrl.isSendingImage = false;
+                ctrl.clearedCanvas = false;
+            }
             ctrl.getHeaders = function () {
                 token = authentication.getToken();
                 ctrl.headers.Authorization = 'Bearer '+token;
@@ -49,6 +52,9 @@ angular.
 
             ctrl.getGameState = function () {
                 // console.log(document.getElementById("drawCanvas"));
+                if (ctrl.tickData && ctrl.tickData.status === 'waiting') {
+                    ctrl.isCorrect = false;
+                }
                 $http.get('/api/pictionary/getGameTick', {headers: ctrl.getHeaders()})
                     .then((v) => {
                         // console.log(v);
@@ -245,6 +251,7 @@ angular.
                 ctrl.setProgressBar(ctrl.drawTimerSeconds);
             };
 
+            ctrl.resetGameState();
             ctrl.connectUser();
             ctrl.intervals.push(setInterval(ctrl.getGameState, 1000));
             ctrl.intervals.push(setInterval(ctrl.connectUser, 30*1000));
