@@ -1,1 +1,1 @@
-var app = angular.module("bloggerApp", ['ngRoute', 'blogger', 'common']);
+var app = angular.module("bloggerApp", ['ngRoute', 'blogger', 'pictionary', 'common']);

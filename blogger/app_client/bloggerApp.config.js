@@ -1,7 +1,7 @@
 
 angular.
 module('bloggerApp').
-config(['$routeProvider',
+config(['$routeProvider', 
     function config($routeProvider) {
         $routeProvider.
             when('/', {
@@ -31,6 +31,9 @@ config(['$routeProvider',
             .when('/logout', {})
             .when('/unauthorized', {
                 template: '<unauthorized></unauthorized>'
+            })
+            .when('/pictionary', {
+                template: '<pictionary-game></pictionary-game>'
             })
             .otherwise('/not-found');
     }

@@ -15,6 +15,9 @@
             <a class="nav-link" href="#!/blogs/add">Add Blog</a>
           </li>
           <li ng-show="$ctrl.isLoggedIn()" class="nav-item">
+            <a class="nav-link" href="#!/pictionary">Pictionary</a>
+          </li>
+          <li ng-show="$ctrl.isLoggedIn()" class="nav-item">
             <a class="nav-link" href="" ng-click="$ctrl.logout()">Logout <small>{{$ctrl.currentUser().email}}</small></a>
           </li>
           <li ng-show="!$ctrl.isLoggedIn()" class="nav-item">
