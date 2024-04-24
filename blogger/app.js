@@ -32,10 +32,10 @@ var appClientFiles = [
   // path.join(__dirname, 'app_client','common', 'auth', 'authentication.js'),
   path.join(__dirname, 'app_client','common', 'services', 'auth.service.js'),
   path.join(__dirname, 'app_client','common', 'services', 'bloggerData.service.js'),
-  path.join(__dirname, 'app_client','blogger', 'blogger.module.js'),
-  path.join(__dirname, 'app_client','blogger', 'blogger.component.js'),
   path.join(__dirname, 'app_client','pictionary', 'pictionary.module.js'),
-  path.join(__dirname, 'app_client','pictionary', 'pictionary.component.js')
+  path.join(__dirname, 'app_client','pictionary', 'pictionary.component.js'),
+  path.join(__dirname, 'app_client','blogger', 'blogger.module.js'),
+  path.join(__dirname, 'app_client','blogger', 'blogger.component.js')
 ];
 
 fs.writeFileSync(path.join(__dirname, 'public', 'angular', 'bloggerApp.min.js'), "");
