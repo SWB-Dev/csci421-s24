@@ -347,8 +347,9 @@ pictionarySchema.methods.calculateScores = function () {
         var w = r.word.toUpperCase();
         var guessers = r.roundGuesses.filter((g) => g.word.toUpperCase() == w);
         guessers.forEach((g) => {
-            var secs = (g.createdOn.getTime() - t)/1000;
+            var secs = (g.createdOn - t)/10000;
             var score = 10 - parseInt(secs);
+            console.log(score);
             if (score > 0) {
                 var u = this.leaderboard.find((u) => u.user.userId === g.user.userId);
                 if (u) {
